@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
+import "./App.css";
+import Footer from "./Footer";
+import Header from "./Header";
+import AreaChart from './AreaChart'
+import LineChart from './LineChart'
+import BarChart from './BarChart'
 
-function App() {
+export default function App() {
+  const [chart, setChart] = useState('bar')
+  function handleChange (e) {
+    setChart(e.target.value)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <div className="data-grid">
+        <div className="tools-container">
+          <select onChange={handleChange}>
+            <option value="bar">Bar</option>
+            <option value="line">Line</option>
+            <option value="area">Area</option>
+          </select>
+        </div>
+        <div className="viz-container">
+          <div className="line-container">
+            {chart ==='bar' && <BarChart />}
+            {chart === 'area' && <AreaChart />}
+            {chart === 'line' && <LineChart />}
+          </div>
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 }
-
-export default App;
